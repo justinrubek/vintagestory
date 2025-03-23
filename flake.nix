@@ -19,8 +19,9 @@
             "dotnet-runtime-7.0.20"
           ];
         };
-        packages = {
+        packages = rec {
           vintagestory = pkgs.callPackage ./packages/vintagestory.nix {};
+          default = vintagestory;
         };
       };
     };
