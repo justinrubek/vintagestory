@@ -8,7 +8,17 @@
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
 
-      perSystem = {pkgs, ...}: {
+      perSystem = {
+        pkgs,
+        system,
+        ...
+      }: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          config.permittedInsecurePackages = [
+            "dotnet-runtime-7.0.20"
+          ];
+        };
         packages = {
           vintagestory = pkgs.callPackage ./packages/vintagestory.nix {};
         };
